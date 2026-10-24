@@ -4,6 +4,7 @@ import cors from "cors"
 import morgan from "morgan"
 import cookieParser from "cookie-parser";
 import proxy from "express-http-proxy"
+import router from "./routes/auth.routes.js"
 dotenv.config()
 
 
@@ -16,6 +17,8 @@ const port=process.env.PORT || 8000
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
+
+app.use("/",router)
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
