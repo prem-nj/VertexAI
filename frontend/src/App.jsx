@@ -2,6 +2,8 @@ import React from 'react'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
 import { login } from './features/login';
+import { Route ,Routes,BrowserRouter} from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
 function App() {
 
   
@@ -18,7 +20,7 @@ function App() {
   return (
     <>
       
-      <div  className='bg-gray-300  w-full h-screen  flex items-center justify-center '>
+      {/* <div  className='bg-gray-300  w-full h-screen  flex items-center justify-center '>
 
       <div className='rounded-2xl border-red-200'>
         <h1 className= " rounded-2xl text-3xl  p-2 mt-4 " >hello</h1>
@@ -33,10 +35,16 @@ function App() {
         <div>
         </div>
         
-      </div>
+      </div>*/}
 
             
-
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Dashboard/>} /> 
+        </Routes>
+        
+      
+      </BrowserRouter>
       
       
 
