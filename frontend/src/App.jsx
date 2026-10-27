@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
 import { login } from './features/login';
 import { Route ,Routes,BrowserRouter} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import {me} from "./features/me"
+import { useDispatch } from 'react-redux';
+import { setuserData } from './redux/userSlice';
 function App() {
 
   
-  const handleLogin = async () => {
-    const result = await signInWithPopup(auth, googleProvider);
-    const token = await result.user.getIdToken()
-    const data = await login(token);
-    console.log(data)
-  }
-  
-  
+  // const handleLogin = async () => {
+  //   const result = await signInWithPopup(auth, googleProvider);
+  //   const token = await result.user.getIdToken()
+  //   const data = await login(token);
+  //   console.log(data)
+  // }
+
+  const dispatch=useDispatch()
+  useEffect( () => {
+    const fetch = async () => {
+      const data = await me()
+      dispatch(setuserData(data))
+    }
+    fetch()
+  },[])
 
  
   return (

@@ -4,6 +4,8 @@ import cors from "cors"
 import morgan from "morgan"
 import cookieParser from "cookie-parser";
 import proxy from "express-http-proxy"
+import { protect } from "./middleware/protect.js";
+import { getCurrentUser } from "./controllers/user.controllers.js";
 
 dotenv.config()
 
@@ -25,7 +27,7 @@ app.use(cors({
 }))
 
 app.use("/api/auth",proxy(process.env.AUTH_SERVICE))
-
+app.get("/api/me",protect,getCurrentUser)
 
 app.get("/", (req,res) => {
   res.json({"message":"hello "})
