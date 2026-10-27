@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       trim: true
     },
-    username: {
+    name: {
       type: String,
       required: true,
       trim: true
@@ -27,4 +27,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export  default  Usermodel = mongoose.model("User", userSchema)
+const UserModel = mongoose.model("User", userSchema);
+
+export default UserModel;
