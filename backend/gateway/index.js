@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import proxy from "express-http-proxy"
 import { protect } from "./middleware/protect.js";
 import { getCurrentUser } from "./controllers/user.controllers.js";
+import { proxyWithHeader } from "./utils/proxyWithHeader.js";
 
 dotenv.config()
 
@@ -26,7 +27,10 @@ app.use(cors({
   credentials:true
 }))
 
-app.use("/api/auth",proxy(process.env.AUTH_SERVICE))
+app.use("/api/auth", proxy(process.env.AUTH_SERVICE))
+app.use("/api/project", protect, proxyWithHeader(process.env.PROJECT_SERVICE || "http://localhost:8001"))
+app.use("/api/project", protect, proxyWithHeader(process.env.PROJECT_SERVICE || "http://localhost:8002"))
+
 app.get("/api/me",protect,getCurrentUser)
 
 app.get("/", (req,res) => {
