@@ -18,7 +18,13 @@ function Dashboard() {
     const result = await signInWithPopup(auth, googleProvider);
     const token = await result.user.getIdToken();
     const data = await login(token);
-    dispatch(setuserData(data))
+      const user = data?.user ?? data;
+  
+      if (!user?.name || !user?.email) {
+        console.error("User details missing:", data);
+        return;
+      }
+    dispatch(setuserData(user))
     setLoading(false)
   }
 
