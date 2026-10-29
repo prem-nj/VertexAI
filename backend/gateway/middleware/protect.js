@@ -7,7 +7,7 @@ export const protect = async (req, res, next) => {
       res.status(401).json({message:"unauthorized"})
     }
 
-    const result = redis.get(`session-${sessionId}`)
+    const result = await redis.get(`session-${sessionId}`)
     if (!result) {
       return res.status(401).json({message:"session not found"})
     }
